@@ -2,7 +2,9 @@ import FinxosDataConverter from '../src';
 
 
 var response = {
-  "code": 20000, "message": "OK", "data": {
+  "code": 20000,
+  "message": "OK",
+  "data": {
     "meta": {
       "sid": "000001.SZ/ochl",
       "columns": ["open", "close", "high", "low"]
@@ -25,6 +27,6 @@ test('test candlestick', () => {
   expect(cvRes[0]).toEqual({
     date: 20171211,
     trend: 0,
-    '000001.SZ/ochl': ['13.08', '13.08', '13.08', '13.08']
+    '000001.SZ/ochl': ['13.08', '13.5', '13.57', '12.88']
   })
 });

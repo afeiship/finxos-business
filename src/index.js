@@ -1,4 +1,5 @@
 const RETURN_VALUE = function (inValue) { return inValue };
+
 export default class {
 
   constructor(inData, inChartType) {
@@ -26,11 +27,12 @@ export default class {
     const indexes = this.data.index;
     const dataValue = this.data.value;
     const candleName = this.data.meta.sid;
+    const [openArray, closeArray, highArray, lowArray] = dataValue;
     return indexes.map((index, idx) => {
-      const dataOpen = dataValue[0][idx];
-      const dataClose = dataValue[0][idx];
-      const dataHigh = dataValue[0][idx];
-      const dataLow = dataValue[0][idx];
+      const dataOpen = openArray[idx];
+      const dataClose = closeArray[idx];
+      const dataHigh = highArray[idx];
+      const dataLow = lowArray[idx];
       return inCallback({
         date: index,
         trend: +(dataOpen > dataClose),
