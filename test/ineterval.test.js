@@ -38,7 +38,8 @@ var response = {
       20090331
     ],
     "meta": {
-      "sid": "1010000007", "columns": ["value"]
+      "sid": "1010000007",
+      "columns": ["value"]
     },
     "value": [
       [

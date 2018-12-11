@@ -18,12 +18,25 @@ export default class {
       case !this.chartType && colLength === 4:
         return this.candlestick(callback);
       default:
-        console.log('this way');
         return this.interval(callback);
     }
   }
 
   candlestick(inCallback) {
+    const indexes = this.data.index;
+    const dataValue = this.data.value;
+    const candleName = this.data.meta.sid;
+    return indexes.map((index, idx) => {
+      const dataOpen = dataValue[0][idx];
+      const dataClose = dataValue[0][idx];
+      const dataHigh = dataValue[0][idx];
+      const dataLow = dataValue[0][idx];
+      return inCallback({
+        date: index,
+        trend: +(dataOpen > dataClose),
+        [candleName]: [dataOpen, dataClose, dataHigh, dataLow]
+      })
+    });
   }
 
   interval(inCallback) {
