@@ -1,4 +1,4 @@
-const RETURN_VALUE = function (inValue) { return inValue };
+const RETURN_VALUE = (inValue) => inValue;
 
 export default class {
 
