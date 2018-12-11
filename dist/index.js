@@ -32,20 +32,20 @@ var _default = function () {
       //todo: buggy dispatch
       var columns = this.data.meta.columns;
       var colLength = columns.length;
-      var callback = inCallback || RETURN_VALUE;
 
       switch (true) {
         case this.chartType != null:
-          return this[this.chartType || 'interval'](callback);
+          return this[this.chartType || 'interval'](inCallback);
         case !this.chartType && colLength === 4:
-          return this.candlestick(callback);
+          return this.candlestick(inCallback);
         default:
-          return this.interval(callback);
+          return this.interval(inCallback);
       }
     }
   }, {
     key: 'candlestick',
     value: function candlestick(inCallback) {
+      var callback = inCallback || RETURN_VALUE;
       var indexes = this.data.index;
       var dataValue = this.data.value;
       var candleName = this.data.meta.sid;
@@ -61,7 +61,7 @@ var _default = function () {
         var dataClose = closeArray[idx];
         var dataHigh = highArray[idx];
         var dataLow = lowArray[idx];
-        return inCallback(_defineProperty({
+        return callback(_defineProperty({
           date: index,
           trend: +(dataOpen > dataClose)
         }, candleName, [dataOpen, dataClose, dataHigh, dataLow]));
@@ -70,10 +70,11 @@ var _default = function () {
   }, {
     key: 'interval',
     value: function interval(inCallback) {
+      var callback = inCallback || RETURN_VALUE;
       var dataArray = this.data.value[0];
       var indexes = this.data.index;
       return dataArray.map(function (dataItem, idx) {
-        return inCallback({
+        return callback({
           index: indexes[idx],
           value: dataItem
         });

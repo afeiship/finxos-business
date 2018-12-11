@@ -11,19 +11,19 @@ export default class {
     //todo: buggy dispatch
     const columns = this.data.meta.columns;
     const colLength = columns.length;
-    const callback = inCallback || RETURN_VALUE;
 
     switch (true) {
       case this.chartType != null:
-        return this[this.chartType || 'interval'](callback)
+        return this[this.chartType || 'interval'](inCallback)
       case !this.chartType && colLength === 4:
-        return this.candlestick(callback);
+        return this.candlestick(inCallback);
       default:
-        return this.interval(callback);
+        return this.interval(inCallback);
     }
   }
 
   candlestick(inCallback) {
+    const callback = inCallback || RETURN_VALUE;
     const indexes = this.data.index;
     const dataValue = this.data.value;
     const candleName = this.data.meta.sid;
@@ -33,7 +33,7 @@ export default class {
       const dataClose = closeArray[idx];
       const dataHigh = highArray[idx];
       const dataLow = lowArray[idx];
-      return inCallback({
+      return callback({
         date: index,
         trend: +(dataOpen > dataClose),
         [candleName]: [dataOpen, dataClose, dataHigh, dataLow]
@@ -42,10 +42,11 @@ export default class {
   }
 
   interval(inCallback) {
+    const callback = inCallback || RETURN_VALUE;
     const dataArray = this.data.value[0];
     const indexes = this.data.index;
     return dataArray.map((dataItem, idx) => {
-      return inCallback({
+      return callback({
         index: indexes[idx],
         value: dataItem
       });
