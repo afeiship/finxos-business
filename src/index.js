@@ -14,7 +14,7 @@ export default class {
 
     switch (true) {
       case this.chartType != null:
-        return this[this.chartType || 'interval'](inCallback)
+        return (this[this.chartType] || this.interval)(inCallback)
       case !this.chartType && colLength === 4:
         return this.candlestick(inCallback);
       default:

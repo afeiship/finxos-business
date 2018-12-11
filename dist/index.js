@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -27,7 +27,7 @@ var _default = function () {
 
 
   _createClass(_default, [{
-    key: 'convert',
+    key: "convert",
     value: function convert(inCallback) {
       //todo: buggy dispatch
       var columns = this.data.meta.columns;
@@ -35,7 +35,7 @@ var _default = function () {
 
       switch (true) {
         case this.chartType != null:
-          return this[this.chartType || 'interval'](inCallback);
+          return (this[this.chartType] || this.interval())(inCallback);
         case !this.chartType && colLength === 4:
           return this.candlestick(inCallback);
         default:
@@ -43,7 +43,7 @@ var _default = function () {
       }
     }
   }, {
-    key: 'candlestick',
+    key: "candlestick",
     value: function candlestick(inCallback) {
       var callback = inCallback || RETURN_VALUE;
       var indexes = this.data.index;
@@ -68,7 +68,7 @@ var _default = function () {
       });
     }
   }, {
-    key: 'interval',
+    key: "interval",
     value: function interval(inCallback) {
       var callback = inCallback || RETURN_VALUE;
       var dataArray = this.data.value[0];
