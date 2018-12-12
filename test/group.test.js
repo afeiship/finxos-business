@@ -24,8 +24,15 @@ const def = {
 
 import GroupConverter from '../src/group';
 
-
+/*
+python 金融领域会用到哪些，怎么用，输出图表？
+python web 有框架 人工智能有AI框架。采集scrappy等
+运维：shell 脚
+科学计算
+最初出来时候，是为了什么，哪方面最擅长?
+*/
 test("test group convert", () => {
   const cv = new GroupConverter(sourceData, def);
+  // console.log(cv.getResultList());
   console.log(cv.convert());
 });

@@ -1,75 +1,65 @@
 export default class {
+  get keys() {
+    return Object.keys(this.defs);
+  }
+  get groupList() {
+    return this.keys.map(key => this.defs[key].group);
+  }
+  get randomKey() {
+    return this.keys[0];
+  }
+  get dataSize() {
+    return this.data[this.randomKey].length;
+  }
+  get resultSize() {
+    return this.dataSize * this.keys.length;
+  }
   constructor(inData, inDefs) {
     this.data = inData;
     this.defs = inDefs;
   }
-  getKeys() {
-    return Object.keys(this.defs);
-  }
-  getGroupList() {
-    const keys = this.getKeys();
-    return keys.map(key => {
-      return this.defs[key].group;
-    });
-  }
-  getRandomKey() {
-    return this.getKeys()[0];
-  }
-  getDataSize() {
-    const randomKey = this.getRandomKey();
-    return this.data[randomKey].length;
-  }
-  createNilGroupList() {
+  getEmptyList() {
     const result = [];
-    const length = this.getKeys().length * this.getDataSize();
-    const groupList = this.getGroupList();
-
-    for (let index = 0; index < length; index++) {
+    for (let index = 0; index < this.resultSize; index++) {
       const item = {};
-      groupList.forEach(groupKey => {
-        item[groupKey] = null;
+      this.groupList.forEach(groupId => {
+        item[groupId] = null;
       });
       result.push(item);
     }
     return result;
   }
   convert() {
-    const result = this.createNilGroupList();
-    const keys = this.getKeys();
-    const length = keys.length * this.getDataSize();
-    const sourceData = this.data;
-
-    for (let i = 0; i < length; i++) {
-      keys.forEach(key => {
+    const result = this.getEmptyList();
+    let rstIndex = 0;
+    for (let i = 0; i < this.dataSize; i++) {
+      for (let j = 0; j < this.keys.length; j++) {
+        const key = this.keys[j];
+        const currentData = this.data[key][i];
         const groupKey = this.defs[key].group;
-        //candlestick:
-        if (this.defs[key].columns.length === 4) {
-          Object.assign(result[i], {
-            date: sourceData[key][i].date,
+        const isIntervalData = this.defs[key].columns.length === 1;
+
+        console.log("isIntervalData:->", isIntervalData);
+
+        if (isIntervalData) {
+          const { value, ...dataItem } = currentData;
+          Object.assign(result[rstIndex], {
+            ...dataItem,
             sid: key,
-            [groupKey]: [
-              sourceData[key][i].open,
-              sourceData[key][i].close,
-              sourceData[key][i].high,
-              sourceData[key][i].low
-            ],
-            [`trend.${groupKey}`]: +(
-              sourceData[key][i].open > sourceData[key][i].close
-            )
+            [groupKey]: value
+          });
+        } else {
+          const { open, close, high, low, ...dataItem } = currentData;
+          Object.assign(result[rstIndex], {
+            ...dataItem,
+            sid: key,
+            [groupKey]: [open, close, high, low],
+            [`trend.${groupKey}`]: +(open > close)
           });
         }
-        // interval line:
-        if (this.defs[key].columns.length === 1) {
-          Object.assign(result[i], {
-            date: sourceData[key][i].date,
-            sid: key,
-            [groupKey]: sourceData[key][i].value,
-            [`trend.${groupKey}`]: +(
-              sourceData[key][i].open > sourceData[key][i].close
-            )
-          });
-        }
-      });
+
+        rstIndex++;
+      }
     }
     return result;
   }
