@@ -3,7 +3,7 @@ export default class {
     return Object.keys(this.defs);
   }
   get groupList() {
-    return this.keys.map(key => this.defs[key].group);
+    return this.keys.map((key) => this.defs[key].group);
   }
   get randomKey() {
     return this.keys[0];
@@ -22,7 +22,7 @@ export default class {
     const result = [];
     for (let index = 0; index < this.resultSize; index++) {
       const item = {};
-      this.groupList.forEach(groupId => {
+      this.groupList.forEach((groupId) => {
         item[groupId] = null;
       });
       result.push(item);
