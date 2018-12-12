@@ -39,8 +39,6 @@ export default class {
         const groupKey = this.defs[key].group;
         const isIntervalData = this.defs[key].columns.length === 1;
 
-        console.log("isIntervalData:->", isIntervalData);
-
         if (isIntervalData) {
           const { value, ...dataItem } = currentData;
           Object.assign(result[rstIndex], {
