@@ -27,5 +27,5 @@ import GroupConverter from '../src/group';
 test("test group convert", () => {
   const cv = new GroupConverter(sourceData, def);
   // console.log(cv.getResultList());
-  console.log(cv.convert());
+  // console.log(cv.convert());
 });

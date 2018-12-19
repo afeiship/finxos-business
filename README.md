@@ -1,17 +1,17 @@
-# finxos-data-converter
+# finxos-business
 > Business data converter.
 
 
 ## install:
 ```bash
-npm install -S afeiship/finxos-data-converter --registry=https://registry.npm.taobao.org
+npm install -S afeiship/finxos-business --registry=https://registry.npm.taobao.org
 ```
 
 ## api && usage:
 ```js
-import FinxosDataConverter from 'finxos-data-converter';
+import FinxosBusiness from 'finxos-business';
 
-const cv = new FinxosDataConverter(response.data);
+const cv = new FinxosBusiness(response.data);
 cv.convert();
 ```
 

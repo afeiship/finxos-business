@@ -1,9 +1,9 @@
 {
-  "name": "finxos-data-converter",
+  "name": "finxos-business",
   "version": "1.0.0",
   "description": "Business data converter.",
   "main": "dist/index.js",
-  "repository": "git@github.com:afeiship/finxos-data-converter.git",
+  "repository": "git@github.com:afeiship/finxos-business.git",
   "author": "feizheng <1290657123@qq.com>",
   "license": "MIT",
   "scripts": {
