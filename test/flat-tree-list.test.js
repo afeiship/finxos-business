@@ -20,7 +20,7 @@ test('test group: 点击 同比', () => {
   treeList.add('dataA', { sid: 'fn1(dataA)', data: 'xxx' });
   treeList.add('dataA', { sid: 'fn2(dataA)', data: 'yyy' });
   treeList.add('fn2(dataA)', { sid: 'fn1(fn2(dataA))', data: 'ccc' });
-  console.log(treeList);
+  console.log(treeList.serialize())
   treeList.remove('dataA');
-  console.log(treeList);
+  console.log(treeList.serialize())
 });

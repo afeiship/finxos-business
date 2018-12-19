@@ -1,9 +1,9 @@
 export default class {
-  get rootId() {
+  get rootId () {
     return '__root__'
   }
 
-  get items() {
+  get items () {
     let result = []
     this._groups.forEach((group) => {
       result = result.concat(group.children)
@@ -11,7 +11,7 @@ export default class {
     return result
   }
 
-  constructor(inItems) {
+  constructor (inItems) {
     this._groups = [
       {
         id: this.rootId,
@@ -20,11 +20,11 @@ export default class {
     ]
   }
 
-  id(inItem) {
+  id (inItem) {
     return typeof this._id === 'function' ? this._id(inItem) : inItem[this._id]
   }
 
-  add(inId, inItem) {
+  add (inId, inItem) {
     const length = this.items.length
     for (let i = 0; i < this._groups.length; i++) {
       const group = this._groups[i]
@@ -42,7 +42,7 @@ export default class {
     }
   }
 
-  remove(inId) {
+  remove (inId) {
     let idx = -1
     this._groups.forEach((item, index) => {
       if (inId === item.id) {
@@ -50,5 +50,9 @@ export default class {
       }
     })
     this._groups.splice(idx, 1)
+  }
+
+  serialize () {
+    return this._groups
   }
 }
